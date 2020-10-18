@@ -1,33 +1,17 @@
 import pygame
+from models.player import Player
+
 pygame.init()
 size = (1024, 768)
 fps = 20  # Frames per second
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 
-
-class Player:
-    image_size = 50
-    screen = screen
-
-    def __init__(self, image_path, nickname, tasks=[], x=0, y=0):
-        image = pygame.image.load(image_path)
-        self.image = pygame.transform.scale(image,
-                                            (self.image_size,
-                                             self.image_size))
-        self.nickname = nickname
-        self.tasks = tasks
-        self.position = (x, y)
-
-    def display(self):
-        self.screen.blit(self.image, self.position)
-
-
 x = 100
 y = 100
 
-player = Player("test_block.png", "Azeasy", x=x, y=y)
-player2 = Player("test_block.png", "Azeasy", x=x + 30, y=y - 10)
+player = Player("test_block.png", screen, "Azeasy", x=x, y=y)
+player2 = Player("test_block.png", screen, "Azeasy", x=x + 30, y=y - 10)
 
 i = 0
 # Game loop
