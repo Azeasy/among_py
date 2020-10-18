@@ -16,6 +16,7 @@
 
 ### ClassDiagram
 class Player
+
     class fields:
         screen
         image_size
@@ -26,7 +27,7 @@ class Player
         tasks = []MiniGame
         position = int x, int y
 
-    def display: displays an image at the screen
+    def display - displays an image at the screen
 
 class Bot(Player)
 
