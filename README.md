@@ -13,3 +13,23 @@
 Игроки решают задачи по питону, для победы нужно решить всё. Задача - найти импостера.
 
 Импостеры убивают игроков. Задача - убить всех.
+
+### ClassDiagram
+class Player
+    class fields:
+        screen
+        image_size
+
+    obj fields:
+        image = pygame.image
+        nickname = str, max=15
+        tasks = []MiniGame
+        position = int x, int y
+
+    def display: displays an image at the screen
+
+class Bot(Player)
+
+class Map
+
+class MiniGame
