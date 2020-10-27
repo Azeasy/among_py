@@ -1,5 +1,6 @@
 import pygame
 
+
 class Map:
     def __init__(self,
                  screen,
@@ -17,4 +18,4 @@ class Map:
         self.spawn = spawn
 
     def display(self):
-        self.screen.blit(self.background)
+        self.screen.blit(self.background, (0, 0))
