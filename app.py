@@ -1,5 +1,6 @@
 import pygame
 from models.player import Player
+from models.map import Map
 
 pygame.init()
 size = (1024, 768)
@@ -11,6 +12,33 @@ x = 100
 y = 100
 
 player = Player("static/images/green.png", screen, "Azeasy", x=x, y=y, speed=2)
+player2 = Player("static/images/green.png", screen, "Azeasy1", x=x, y=y, speed=1)
+
+arr = [
+    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww                       wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww             x            wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+    "www            wwwwwwwwwwwwwwwwwwwwwwwwww                            wwwwwwwwwwwwwwwwwwwww                       www",
+    "www            wwwwwwwwwwwwwwwwwwwwwwwwd           ttttttt            dwwwwwwwwwwwwwwwwwww                       www",
+    "www                                                ttttttt                                                       www",
+    "www        b                                       ttttttt                                                       www",
+    "www         wwwwwwwwwwww      wwwwwwwwwd                              dwwwwwwwwwwwwwwwwwwwwwwww       wwwwwwwwwwwwww",
+    "wwwwww      wwwwwwwwwwww      wwwwwwwwwww                             wwwwwwwwwwwwwwwwwwwwwwwww       wwwwwwwwwwwwww",
+    "wwwwww      wwwwwwwwwwww      wwwwwwwwwwwww                         wwwwwwwwwww                                   ww",
+    "    ww      ww      ww        wwwwwwwwwwwwwwwwwwwwd        dwwwwwwwwww                                            ww",
+    "     w      w       ww              wwwwwwwwwwwwwww          wwwwwwwww                                            ww",
+    "                    ww               wwwwwwwwwwwwww          wwwwwwwww                                            ww",
+]
+
+map_ = Map(arr,
+           screen,
+           "static/images/test_block.png",
+           "static/images/green.png",
+           "static/images/background.jpg",
+           # [player, player2]
+           )
+map_.add_player(player)
+map_.add_player(player2)
 
 animation_step = 0
 done = False
@@ -43,15 +71,19 @@ while not done:
             if event.key == pygame.K_LEFT:
                 direction.remove('left')
 
-    player.move(direction=direction)
+        if pygame.mouse.get_pressed()[0]:
+            print(pygame.mouse.get_pos())
 
     # Draw
-    screen.fill((100, 100, 255))
+    map_.display()
 
     freq = fps // 3
     animation_step += 1
     animation_step %= freq
-    player.display(direction=direction, step=animation_step, frequency=freq//2)
+
+    for player in map_.players:
+        player.move(direction=direction)
+        player.display(direction=direction, step=animation_step, frequency=freq // 2)
 
     pygame.display.flip()
     clock.tick(fps)
