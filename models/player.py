@@ -80,3 +80,9 @@ class Player:
             cur_x += 5 * self.speed / reduce_speed
 
         self.position = (cur_x, cur_y)
+
+    def __str__(self):
+        return f"{self.__class__.__name__} {self.nickname}"
+
+    def __repr__(self):
+        return self.__str__()

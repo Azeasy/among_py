@@ -1,9 +1,11 @@
 import pygame
 from .player import Player
+from .bot import Bot
 
 
 class Map:
     image_size = 50
+
     # def __init__(self,
     #              tasks,
     #              spawn):  # spawn - это изначальное место, откуда начинается игра
@@ -51,9 +53,9 @@ class Map:
                 if self.map_arr[i][j] == "t":
                     self.screen.blit(self.imageTable, (j * self.image_size, i * self.image_size))
                 if self.map_arr[i][j] == "b":
-                    self.add_player(Player("static/images/green.png",
-                                           self.screen,
-                                           "Azeasy2",
-                                           x=j * self.image_size,
-                                           y=i * self.image_size,
-                                           speed=1))
+                    self.add_player(Bot("static/images/green.png",
+                                        self.screen,
+                                        "Azeasy3",
+                                        x=j * self.image_size,
+                                        y=i * self.image_size,
+                                        speed=1))
