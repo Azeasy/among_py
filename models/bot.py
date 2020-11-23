@@ -17,13 +17,17 @@ class Bot(Player):
         self.last_shot = None
 
     def display(self, direction, step=0, frequency=10):
-        super(Bot, self).display(direction, step, frequency)
+        super(Bot, self).display(self.direction, step, frequency)
 
         for bullet in self.bullets:
             bullet.move()
             bullet.display()
 
     def move(self, direction):
+        if 'right' in self.direction and 'left' in self.direction or \
+                'up' in self.direction and 'down' in self.direction:
+            self.direction = []
+
         self.slow_mo = len(direction) > 0
 
         if self.slow_mo:
@@ -45,7 +49,7 @@ class Bot(Player):
                 x, y = self.position
                 dest_x, dest_y = player.position
 
-                distance = ((dest_x - x)**2 + (dest_y - y)**2)**0.5
+                distance = ((dest_x - x) ** 2 + (dest_y - y) ** 2) ** 0.5
 
                 if distance < 500:
                     start = time.time() // 1

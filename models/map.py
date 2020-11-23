@@ -55,7 +55,8 @@ class Map:
                 if self.map_arr[i][j] == "b":
                     self.add_player(Bot("static/images/green.png",
                                         self.screen,
-                                        "Azeasy3",
+                                        str(len(self.players)),
                                         x=j * self.image_size,
                                         y=i * self.image_size,
                                         speed=1))
+                    self.map_arr[i] = self.map_arr[i][:j] + ' ' + self.map_arr[i][j + 1:]

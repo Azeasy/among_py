@@ -19,7 +19,7 @@ arr = [
     "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww                       wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
     "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww             x            wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
     "www            wwwwwwwwwwwwwwwwwwwwwwwwww                            wwwwwwwwwwwwwwwwwwwww                       www",
-    "www            wwwwwwwwwwwwwwwwwwwwwwwwd           ttttttt            dwwwwwwwwwwwwwwwwwww                       www",
+    "www         b  wwwwwwwwwwwwwwwwwwwwwwwwd           ttttttt            dwwwwwwwwwwwwwwwwwww                       www",
     "www                                                ttttttt                                                       www",
     "www        b                                       ttttttt                                                       www",
     "www         wwwwwwwwwwww      wwwwwwwwwd                              dwwwwwwwwwwwwwwwwwwwwwwww       wwwwwwwwwwwwww",
