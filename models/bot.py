@@ -1,5 +1,6 @@
 from .player import Player
-from random import choices, randint
+from .bullet import Bullet
+from random import choices
 import time
 
 
@@ -7,23 +8,16 @@ class Bot(Player):
     slow_mo = True
     directions = ['left', 'right', 'up', 'down']
 
-    def __init__(self, image_path, screen, nickname, x=300, y=300, speed=1, cooldown=3, **kwargs):
-        super().__init__(image_path, screen, nickname, x=x, y=y, speed=1)
+    def __init__(self, image_path, screen, nickname, x=300, y=300, speed=1, cooldown=3, lifes=3, **kwargs):
+        super().__init__(image_path, screen, nickname, cooldown=cooldown, x=x, y=y, speed=speed, lifes=lifes)
         self.direction = choices(self.directions, k=2)
         self.duration = 2
         self.last_move = None
-        self.bullets = []
-        self.cooldown = cooldown
-        self.last_shot = None
 
-    def display(self, direction, step=0, frequency=10):
-        super(Bot, self).display(self.direction, step, frequency)
+    def display(self, cam_x, cam_y, direction, bullet_speed=1, step=0, frequency=10, players=[]):
+        super(Bot, self).display(cam_x, cam_y, self.direction, bullet_speed, step, frequency, players)
 
-        for bullet in self.bullets:
-            bullet.move()
-            bullet.display()
-
-    def move(self, direction):
+    def move(self, direction, map_arr, cam_x, cam_y):
         if 'right' in self.direction and 'left' in self.direction or \
                 'up' in self.direction and 'down' in self.direction:
             self.direction = []
@@ -33,9 +27,9 @@ class Bot(Player):
         if self.slow_mo:
             self.speed = 1
         else:
-            self.speed = 0.5
+            self.speed = 0.3
 
-        super(Bot, self).move(self.direction)
+        super(Bot, self).move(self.direction, map_arr, cam_x, cam_y)
 
         start = time.time() // 1
 
@@ -43,17 +37,13 @@ class Bot(Player):
             self.direction = choices(self.directions, k=2)
             self.last_move = start % 10
 
-    def shot(self, players):
-        for player in players:
-            if isinstance(player, Player):
-                x, y = self.position
-                dest_x, dest_y = player.position
+    def shot(self, dest_x, dest_y):
+        x, y = self.position
 
-                distance = ((dest_x - x) ** 2 + (dest_y - y) ** 2) ** 0.5
+        distance = ((dest_x - x) ** 2 + (dest_y - y) ** 2) ** 0.5
 
-                if distance < 500:
-                    start = time.time() // 1
-                    if start % self.cooldown == 0 and self.last_shot != start % 10:
-                        # self.bullets.append(Bullet(self.screen, x, y, dest_x, dest_y))
-                        self.last_shot = start % 10
-                        pass
+        if distance < 500:
+            start = self.last_shot
+            if time.time() - start > self.cooldown:
+                self.bullets.append(Bullet(self.screen, x + 25, y + 25, dest_x, dest_y))
+                self.last_shot = time.time()

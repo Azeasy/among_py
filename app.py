@@ -1,6 +1,7 @@
 import pygame
 from models.player import Player
 from models.map import Map
+from models.bot import Bot
 
 pygame.init()
 size = (1024, 768)
@@ -8,22 +9,23 @@ fps = 30  # Frames per second
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 
-x = 100
-y = 100
+cam_x, cam_y = 0, 0
+
+x = 300
+y = 300
 
 player = Player("static/images/green.png", screen, "Azeasy", x=x, y=y, speed=2)
-player2 = Player("static/images/green.png", screen, "Azeasy1", x=x, y=y, speed=1)
 
 arr = [
     "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
     "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww                       wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
     "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww             x            wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
     "www            wwwwwwwwwwwwwwwwwwwwwwwwww                            wwwwwwwwwwwwwwwwwwwww                       www",
-    "www         b  wwwwwwwwwwwwwwwwwwwwwwwwd           ttttttt            dwwwwwwwwwwwwwwwwwww                       www",
+    "www            wwwwwwwwwwwwwwwwwwwwwwwwd           ttttttt            dwwwwwwwwwwwwwwwwwww                       www",
     "www                                                ttttttt                                                       www",
-    "www        b                                       ttttttt                                                       www",
+    "www                                                ttttttt                                                       www",
     "www         wwwwwwwwwwww      wwwwwwwwwd                              dwwwwwwwwwwwwwwwwwwwwwwww       wwwwwwwwwwwwww",
-    "wwwwww      wwwwwwwwwwww      wwwwwwwwwww                             wwwwwwwwwwwwwwwwwwwwwwwww       wwwwwwwwwwwwww",
+    "wwwwww      wwwwwwwwwwww      wwwwwwwwwww              b              wwwwwwwwwwwwwwwwwwwwwwwww       wwwwwwwwwwwwww",
     "wwwwww      wwwwwwwwwwww      wwwwwwwwwwwww                         wwwwwwwwwww                                   ww",
     "    ww      ww      ww        wwwwwwwwwwwwwwwwwwwwd        dwwwwwwwwww                                            ww",
     "     w      w       ww              wwwwwwwwwwwwwww          wwwwwwwww                                            ww",
@@ -38,11 +40,12 @@ map_ = Map(arr,
            # [player, player2]
            )
 map_.add_player(player)
-map_.add_player(player2)
 
 animation_step = 0
 done = False
 direction = set()
+
+bullets_cnt = 10
 
 # Game loop
 while not done:
@@ -71,19 +74,53 @@ while not done:
             if event.key == pygame.K_LEFT:
                 direction.remove('left')
 
-        if pygame.mouse.get_pressed()[0]:
-            print(pygame.mouse.get_pos())
+        if pygame.mouse.get_pressed()[0] and event.type == pygame.MOUSEBUTTONDOWN:
+            bullets_cnt -= 1
+            map_.players[0].shot(event.pos[0] - cam_x, event.pos[1] - cam_y)
+
+    x, y = map_.players[0].position
+
+    if x + cam_x > size[0]*0.7:
+        cam_x = cam_x - 7
+    if x + cam_x < size[0]*0.3:
+        cam_x = cam_x + 9
+
+    if y + cam_y > size[1]*0.6:
+        cam_y = cam_y - 7
+    if y + cam_y < size[1]*0.3:
+        cam_y = cam_y + 9
+
 
     # Draw
-    map_.display()
+    # map_.display(cam_x, cam_y)
+    screen.blit(map_.background, (0, 0))
 
     freq = fps // 3
     animation_step += 1
     animation_step %= freq
 
+    bullet_speed = 0.3
+    if len(direction) > 0:
+        bullet_speed = 1
+
     for player in map_.players:
-        player.move(direction=direction)
-        player.display(direction=direction, step=animation_step, frequency=freq // 2)
+        if player.lifes <= 0:
+            continue
+        player.move(direction=direction, map_arr=arr, cam_x=cam_x, cam_y=cam_y)
+        player.display(cam_x,
+                       cam_y,
+                       direction=direction,
+                       bullet_speed=bullet_speed,
+                       step=animation_step,
+                       frequency=freq // 2,
+                       players=map_.players)
+        if isinstance(player, Bot):
+            player.shot(x, y)
+
+    map_.display(cam_x, cam_y)
+
+    if map_.players[0].lifes <= 0:
+        game_over = True
 
     pygame.display.flip()
     clock.tick(fps)

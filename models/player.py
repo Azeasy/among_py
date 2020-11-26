@@ -1,10 +1,13 @@
 import pygame
+import time
+from .bullet import Bullet
+from .utils import is_collide
 
 
 class Player:
     image_size = 100
 
-    def __init__(self, image_path, screen, nickname, tasks=[], x=0, y=0, speed=1):
+    def __init__(self, image_path, screen, nickname, cooldown=3, x=0, y=0, speed=1, lifes=3):
         image = pygame.image.load(image_path)
         self.image = pygame.transform.scale(image,
                                             (self.image_size,
@@ -28,13 +31,16 @@ class Player:
                                                        self.image_size))
         self.screen = screen
         self.nickname = nickname
-        self.tasks = tasks
         self.position = (x, y)
         self.speed = speed
         self.animate = False
         self.cur_dir = 'right'
+        self.bullets = []
+        self.cooldown = cooldown
+        self.last_shot = 0
+        self.lifes = lifes
 
-    def display(self, direction, step=0, frequency=10):
+    def display(self, cam_x, cam_y, direction, bullet_speed=1, step=0, frequency=10, players=[]):
         animate = len(direction) > 0
         if 'left' in direction:
             self.image = self.image_left
@@ -60,9 +66,13 @@ class Player:
             elif self.cur_dir == 'right':
                 self.image = self.image_right
 
-        self.screen.blit(self.image, self.position)
+        self.screen.blit(self.image, (self.position[0] + cam_x, self.position[1] + cam_y))
 
-    def move(self, direction):
+        for bullet in self.bullets:
+            bullet.move(speed=bullet_speed, players=players)
+            bullet.display(cam_x, cam_y)
+
+    def move(self, direction, map_arr, cam_x, cam_y):
         cur_pos = self.position
         cur_x, cur_y = cur_pos[0], cur_pos[1]
 
@@ -79,7 +89,17 @@ class Player:
         if 'right' in direction:
             cur_x += 5 * self.speed / reduce_speed
 
-        self.position = (cur_x, cur_y)
+        collide = is_collide((cur_x, cur_y), map_arr)
+
+        if not collide:
+            self.position = (cur_x, cur_y)
+
+    def shot(self, dest_x, dest_y):
+        start = self.last_shot
+        x, y = self.position
+        if time.time() - start > self.cooldown:
+            self.bullets.append(Bullet(self.screen, x + 25, y + 25, dest_x, dest_y))
+            self.last_shot = time.time()
 
     def __str__(self):
         return f"{self.__class__.__name__} {self.nickname}"

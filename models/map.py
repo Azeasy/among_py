@@ -1,5 +1,4 @@
 import pygame
-from .player import Player
 from .bot import Bot
 
 
@@ -43,20 +42,19 @@ class Map:
                 return
         self.players.append(player)
 
-    def display(self):
-        self.screen.blit(self.background, (0, 0))
-
+    def display(self, cam_x, cam_y):
         for i in range(len(self.map_arr)):
             for j in range(len(self.map_arr[i])):
                 if self.map_arr[i][j] == "w":
-                    self.screen.blit(self.imageWall, (j * self.image_size, i * self.image_size))
+                    self.screen.blit(self.imageWall, (j * self.image_size + cam_x, i * self.image_size + cam_y))
                 if self.map_arr[i][j] == "t":
-                    self.screen.blit(self.imageTable, (j * self.image_size, i * self.image_size))
+                    self.screen.blit(self.imageTable, (j * self.image_size + cam_x, i * self.image_size + cam_y))
                 if self.map_arr[i][j] == "b":
                     self.add_player(Bot("static/images/green.png",
                                         self.screen,
                                         str(len(self.players)),
-                                        x=j * self.image_size,
-                                        y=i * self.image_size,
-                                        speed=1))
+                                        x=j * self.image_size + cam_x,
+                                        y=i * self.image_size + cam_y,
+                                        speed=1,
+                                        lifes=1))
                     self.map_arr[i] = self.map_arr[i][:j] + ' ' + self.map_arr[i][j + 1:]
