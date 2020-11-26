@@ -3,6 +3,7 @@ from models.player import Player
 from models.map import Map
 from models.bot import Bot
 import time
+from pygame_menu.font import FONT_8BIT
 
 skeld = [
     "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
@@ -191,6 +192,18 @@ def start(color="Green", level="SKELD"):
             screen.blit(life, (life_x, life_y))
             life_x += 40
 
+        green = (0, 255, 0)
+        blue = (0, 0, 128)
+        font = pygame.font.Font('freesansbold.ttf', 32)
+        text = font.render(f'{bullets_cnt} bullets left', True, green)
+        textRect = text.get_rect()
+        textRect.center = (130, 50)
+        screen.blit(text, textRect)
+
+        text = font.render(f'{alived - 1} imposters left', True, green)
+        textRect = text.get_rect()
+        textRect.center = (130, 100)
+        screen.blit(text, textRect)
         if map_.players[0].lifes <= 0:
             done = True
 
