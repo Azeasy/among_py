@@ -50,7 +50,7 @@ class Map:
                 if self.map_arr[i][j] == "t":
                     self.screen.blit(self.imageTable, (j * self.image_size + cam_x, i * self.image_size + cam_y))
                 if self.map_arr[i][j] == "b":
-                    self.add_player(Bot("static/images/green.png",
+                    self.add_player(Bot("static/images/red.png",
                                         self.screen,
                                         str(len(self.players)),
                                         x=j * self.image_size + cam_x,
