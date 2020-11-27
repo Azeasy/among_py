@@ -14,8 +14,8 @@ class Bot(Player):
         self.duration = 2
         self.last_move = None
 
-    def display(self, cam_x, cam_y, direction, bullet_speed=1, step=0, frequency=10, players=[]):
-        super(Bot, self).display(cam_x, cam_y, self.direction, bullet_speed, step, frequency, players)
+    def display(self, cam_x, cam_y, direction, bullet_speed=1, step=0, frequency=10, players=[], map_arr=[]):
+        super(Bot, self).display(cam_x, cam_y, self.direction, bullet_speed, step, frequency, players, map_arr)
 
     def move(self, direction, map_arr, cam_x, cam_y):
         if 'right' in self.direction and 'left' in self.direction or \
@@ -43,7 +43,4 @@ class Bot(Player):
         distance = ((dest_x - x) ** 2 + (dest_y - y) ** 2) ** 0.5
 
         if distance < 500:
-            start = self.last_shot
-            if time.time() - start > self.cooldown:
-                self.bullets.append(Bullet(self.screen, x + 25, y + 25, dest_x, dest_y))
-                self.last_shot = time.time()
+            super(Bot, self).shot(dest_x, dest_y)

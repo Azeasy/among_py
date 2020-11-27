@@ -12,28 +12,17 @@ class Map:
     def __init__(self,
                  map_arr,
                  screen,
-                 image_path1,
-                 image_path2,
                  background,
                  players=[],
+                 data_path='static/images/{}.png'
                  ):
-
-        imageWall = pygame.image.load(image_path1)
-        self.imageWall = pygame.transform.scale(imageWall,
-                                                (self.image_size,
-                                                 self.image_size))
-        imageTable = pygame.image.load(image_path2)
-        self.imageTable = pygame.transform.scale(imageTable,
-                                                 (self.image_size,
-                                                  self.image_size))
 
         self.screen = screen
         self.background = pygame.image.load(background)
         self.map_arr = map_arr
         self.players = players
-        # self.tasks = tasks
-        # self.walls = walls
-        # self.spawn = spawn
+        self.data_path = data_path
+        self.assets = {}
 
     def add_player(self, player):
         add = False
@@ -42,19 +31,33 @@ class Map:
                 return
         self.players.append(player)
 
+    def get_asset(self, s):
+        if not self.assets.get(s):
+            image = pygame.image.load(self.data_path.format(s))
+            self.assets[s] = pygame.transform.scale(image,
+                                                    (self.image_size,
+                                                     self.image_size))
+        return self.assets.get(s)
+
+    def display_ground(self, cam_x, cam_y):
+        for i in range(len(self.map_arr)):
+            for j in range(len(self.map_arr[i])):
+                if self.map_arr[i][j] == " ":
+                    self.screen.blit(self.get_asset('ground'),
+                                     (j * self.image_size + cam_x, i * self.image_size + cam_y))
+
     def display(self, cam_x, cam_y):
         for i in range(len(self.map_arr)):
             for j in range(len(self.map_arr[i])):
-                if self.map_arr[i][j] == "w":
-                    self.screen.blit(self.imageWall, (j * self.image_size + cam_x, i * self.image_size + cam_y))
-                if self.map_arr[i][j] == "t":
-                    self.screen.blit(self.imageTable, (j * self.image_size + cam_x, i * self.image_size + cam_y))
+                if self.map_arr[i][j] not in " b":
+                    self.screen.blit(self.get_asset(self.map_arr[i][j]),
+                                     (j * self.image_size + cam_x, i * self.image_size + cam_y))
                 if self.map_arr[i][j] == "b":
                     self.add_player(Bot("static/images/red.png",
                                         self.screen,
                                         str(len(self.players)),
-                                        x=j * self.image_size + cam_x,
-                                        y=i * self.image_size + cam_y,
+                                        x=j * self.image_size,
+                                        y=i * self.image_size,
                                         speed=1,
                                         lifes=1))
                     self.map_arr[i] = self.map_arr[i][:j] + ' ' + self.map_arr[i][j + 1:]

@@ -6,9 +6,11 @@ from app import start
 
 pygame.init()
 screen = pygame.display.set_mode((1024, 768))
+pygame.mixer.init()
 
 engine = sound.Sound()
-engine.set_sound(sound.SOUND_TYPE_CLICK_MOUSE, 'static/audio/mouse-click.mp3')
+engine.set_sound(sound.SOUND_TYPE_CLICK_MOUSE, 'static/audio/mouse-click.ogg')
+pygame.mixer.music.load("static/audio/background.ogg")
 
 
 def start_the_game():
@@ -50,7 +52,7 @@ menu.set_sound(engine, recursive=True)
 settings.set_sound(engine, recursive=True)
 
 # buttons
-name_button = menu.add_text_input('', default='player', font_name=new_font, font_size=30)
+name_button = menu.add_text_input('', default='Username', font_name=new_font, font_size=30)
 menu.add_vertical_margin(20)
 play_button = menu.add_button('Play', start_the_game, font_name=new_font, font_size=30)
 menu.add_vertical_margin(20)
@@ -73,6 +75,8 @@ color_settings_button = settings.add_selector('Select color ',
 settings.add_vertical_margin(50)
 
 return_button = settings.add_button('Return to menu', pygame_menu.events.BACK, font_name=new_font, font_size=15)
+
+pygame.mixer.music.play(loops=-1)
 
 while True:
     events = pygame.event.get()

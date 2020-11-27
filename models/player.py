@@ -3,6 +3,12 @@ import time
 from .bullet import Bullet
 from .utils import is_collide
 
+pygame.mixer.init()
+shot_sound = pygame.mixer.Sound('static/audio/shot.ogg')
+shot_sound.set_volume(0.1)
+
+kill_sound = pygame.mixer.Sound('static/audio/kill.ogg')
+
 
 class Player:
     image_size = 100
@@ -29,6 +35,10 @@ class Player:
         self.image_left_jump = pygame.transform.scale(image_left_jump,
                                                       (self.image_size,
                                                        self.image_size))
+        image_dead = pygame.image.load(image_path.replace('.png', '_dead.png'))
+        self.image_dead = pygame.transform.scale(image_dead,
+                                                 (self.image_size,
+                                                  self.image_size))
         self.screen = screen
         self.nickname = nickname
         self.position = (x, y)
@@ -40,7 +50,14 @@ class Player:
         self.last_shot = 0
         self.lifes = lifes
 
-    def display(self, cam_x, cam_y, direction, bullet_speed=1, step=0, frequency=10, players=[]):
+    def dead(self, cam_x, cam_y, bullet_speed=1, players=[], map_arr=[]):
+        self.screen.blit(self.image_dead, (self.position[0] + cam_x, self.position[1] + cam_y))
+
+        for bullet in self.bullets:
+            bullet.move(speed=bullet_speed, players=players, map_arr=map_arr)
+            bullet.display(cam_x, cam_y)
+
+    def display(self, cam_x, cam_y, direction, bullet_speed=1, step=0, frequency=10, players=[], map_arr=[]):
         animate = len(direction) > 0
         if 'left' in direction:
             self.image = self.image_left
@@ -69,7 +86,7 @@ class Player:
         self.screen.blit(self.image, (self.position[0] + cam_x, self.position[1] + cam_y))
 
         for bullet in self.bullets:
-            bullet.move(speed=bullet_speed, players=players)
+            bullet.move(speed=bullet_speed, players=players, map_arr=map_arr)
             bullet.display(cam_x, cam_y)
 
     def move(self, direction, map_arr, cam_x, cam_y):
@@ -98,8 +115,17 @@ class Player:
         start = self.last_shot
         x, y = self.position
         if time.time() - start > self.cooldown:
+            shot_sound.play()
             self.bullets.append(Bullet(self.screen, x + 25, y + 25, dest_x, dest_y))
             self.last_shot = time.time()
+
+    def get_punch(self):
+        self.lifes -= 1
+        if self.lifes == 0:
+            kill_sound.play()
+
+    def is_alive(self):
+        return self.lifes > 0
 
     def __str__(self):
         return f"{self.__class__.__name__} {self.nickname}"

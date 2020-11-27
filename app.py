@@ -2,19 +2,21 @@ import pygame
 from models.player import Player
 from models.map import Map
 from models.bot import Bot
-import time
-from pygame_menu.font import FONT_8BIT
+
+pygame.mixer.init()
+kill_sound = pygame.mixer.Sound('static/audio/kill.ogg')
+walk_sound = pygame.mixer.Sound('static/audio/walking.ogg')
 
 skeld = [
-    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
-    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww                       wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
-    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww                          wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
-    "wwwwww            wwwwwwwwwwwwwwwwwwwwwwwwww                            wwwwwwwwwwwwwwwwwwwww                wwwwwwwwww",
-    "wwwwwwttttttt     wwwwwwwwwwwwwwwwwwwwwwwww           ttttttt            dwwwwwwwwwwwwwwwwwww       tttt b   wwwwwwwwww",
-    "wwwwwwttttttt                                         ttttttt                                        ttt     wwwwwwwwww",
-    "wwwwww                                                ttttttt                                                wwwwwwwwww",
-    "wwwwww        wwwwwwwwwwwww      wwwwwwwwww                              dwwwwwwwwwwwwwwwwwww      wwwwwwwwwwwwwwwwwwww",
-    "wwwwwwwww     wwwwwwwwwwwww      wwwwwwwwwww                             wwwwwwwwwwwwwwwwwwww      wwwwwwwwwwwwwwwwwwww",
+    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww555555555555555555555wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+    "wwwwww222222222222wwwwwwwwwwwwwwwwwwwwwwwwwwww5                       wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+    "wwwww65555555555554wwwwwwwwwwwwwwwwwwwwwwwww5                          wwwwwwwwwwwwwwwwwwwwww5555555555555555wwwwwwwwww",
+    "wwwww6            4wwwwwwwwwwwwwwwwwwwwwwww5                            wwwwwwwwwwwwwwwwwwwww                wwwwwwwwww",
+    "wwwww6            5555555555555555555555555           ttttttt            d55555555555555555555       tttt b   wwwwwwwwww",
+    "wwwww6ttttttt                                         ttttttt                                        ttt     wwwwwwwwww",
+    "wwwww6                                                ttttttt                                                wwwwwwwwww",
+    "wwwww6        7888888888888      wwwwwwwwww                              dwwwwwwwwwwwwwwwwwww      wwwwwwwwwwwwwwwwwwww",
+    "wwwwwwwww     4wwwwwwwwwwww      wwwwwwwwwww                             wwwwwwwwwwwwwwwwwwww      wwwwwwwwwwwwwwwwwwww",
     "wwwwwwwww     wwwwwwwwwwwww      wwwwwwwwwwwww                         wwwwwwww        wwwwww      wwwwwwwww       wwww",
     "w    wwww     www  tt  ww           wwwwwwwwwwwwwwwwwd          wwwwwwwwwwww                           wwwww        www",
     "w      ww     www      ww           wwwwwwwwwwwwwwwwww          wwwwwwwww                                           tww",
@@ -74,6 +76,8 @@ mirahq = [
     "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
 ]
 
+walking_is_playing = False
+
 
 def start(color="Green", level="SKELD"):
     pygame.init()
@@ -91,15 +95,13 @@ def start(color="Green", level="SKELD"):
         x = 300
         y = 1300
 
-    cam_x, cam_y = 0, 0
+    cam_x, cam_y = -x + 500, -y + 600
 
     player = Player(f"static/images/{color.lower()}.png", screen, "Azeasy", x=x, y=y, speed=2)
 
     map_ = Map(arr,
                screen,
-               "static/images/wall.png",
-               "static/images/table.png",
-               "static/images/background.jpg",
+               background="static/images/background.jpg",
                )
     map_.add_player(player)
 
@@ -143,14 +145,14 @@ def start(color="Green", level="SKELD"):
         x, y = map_.players[0].position
 
         if x + cam_x > size[0] * 0.7:
-            cam_x = cam_x - 10
+            cam_x = cam_x - 8
         if x + cam_x < size[0] * 0.3:
-            cam_x = cam_x + 10
+            cam_x = cam_x + 8
 
         if y + cam_y > size[1] * 0.6:
-            cam_y = cam_y - 12
+            cam_y = cam_y - 7
         if y + cam_y < size[1] * 0.3:
-            cam_y = cam_y + 12
+            cam_y = cam_y + 7
 
         # Draw
         # map_.display(cam_x, cam_y)
@@ -163,10 +165,20 @@ def start(color="Green", level="SKELD"):
         bullet_speed = 0.3
         if len(direction) > 0:
             bullet_speed = 1
+            if not walking_is_playing:
+                walk_sound.play()
+                walking_is_playing = True
+        else:
+            walk_sound.stop()
+            walking_is_playing = False
 
         alived = len(map_.players)
+
+        map_.display_ground(cam_x, cam_y)
+
         for player in map_.players:
-            if player.lifes <= 0:
+            if not player.is_alive():
+                player.dead(cam_x, cam_y, bullet_speed=bullet_speed, players=map_.players)
                 alived -= 1
                 continue
             player.move(direction=direction, map_arr=arr, cam_x=cam_x, cam_y=cam_y)
@@ -176,7 +188,8 @@ def start(color="Green", level="SKELD"):
                            bullet_speed=bullet_speed,
                            step=animation_step,
                            frequency=freq // 2,
-                           players=map_.players)
+                           players=map_.players,
+                           map_arr=map_.map_arr)
             if isinstance(player, Bot):
                 player.shot(x, y)
             if alived == 1:
