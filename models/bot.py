@@ -25,9 +25,9 @@ class Bot(Player):
         self.slow_mo = len(direction) > 0
 
         if self.slow_mo:
-            self.speed = 1
+            self.speed = 2
         else:
-            self.speed = 0.3
+            self.speed = 0.2
 
         super(Bot, self).move(self.direction, map_arr, cam_x, cam_y)
 

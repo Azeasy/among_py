@@ -43,7 +43,7 @@ class Bullet:
         elif self.x_diff >= 0 and self.y_diff <= 0:
             part = 4
 
-        value = 15
+        value = 25
 
         if part == 1:
             self.x += value * cos(angle) * speed

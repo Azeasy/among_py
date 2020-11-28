@@ -58,6 +58,6 @@ class Map:
                                         str(len(self.players)),
                                         x=j * self.image_size,
                                         y=i * self.image_size,
-                                        speed=1,
+                                        speed=2,
                                         lifes=1))
                     self.map_arr[i] = self.map_arr[i][:j] + ' ' + self.map_arr[i][j + 1:]

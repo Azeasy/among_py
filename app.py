@@ -8,34 +8,34 @@ kill_sound = pygame.mixer.Sound('static/audio/kill.ogg')
 walk_sound = pygame.mixer.Sound('static/audio/walking.ogg')
 
 skeld = [
-    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww555555555555555555555wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
-    "wwwwww222222222222wwwwwwwwwwwwwwwwwwwwwwwwwwww5                       wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
-    "wwwww65555555555554wwwwwwwwwwwwwwwwwwwwwwwww5                          wwwwwwwwwwwwwwwwwwwwww5555555555555555wwwwwwwwww",
-    "wwwww6            4wwwwwwwwwwwwwwwwwwwwwwww5                            wwwwwwwwwwwwwwwwwwwww                wwwwwwwwww",
-    "wwwww6            5555555555555555555555555           ttttttt            d55555555555555555555       tttt b   wwwwwwwwww",
-    "wwwww6ttttttt                                         ttttttt                                        ttt     wwwwwwwwww",
-    "wwwww6                                                ttttttt                                                wwwwwwwwww",
-    "wwwww6        7888888888888      wwwwwwwwww                              dwwwwwwwwwwwwwwwwwww      wwwwwwwwwwwwwwwwwwww",
-    "wwwwwwwww     4wwwwwwwwwwww      wwwwwwwwwww                             wwwwwwwwwwwwwwwwwwww      wwwwwwwwwwwwwwwwwwww",
-    "wwwwwwwww     wwwwwwwwwwwww      wwwwwwwwwwwww                         wwwwwwww        wwwwww      wwwwwwwww       wwww",
-    "w    wwww     www  tt  ww           wwwwwwwwwwwwwwwwwd          wwwwwwwwwwww                           wwwww        www",
-    "w      ww     www      ww           wwwwwwwwwwwwwwwwww          wwwwwwwww                                           tww",
-    "wttt                   ww           wwwwwwwwwwwwwwwwww          wwwwwwwww              wwwwwwwwwwww                 ttw",
-    "wttt                b  ww                wwwwwwwwwwwww          wwwwwwwwwwwwwwwwwwwwwwwwwwwwww         wwwww        tww",
-    "w      ww     www      ww                 wwwwwwwwwwww                   wwwwwwwwwwwwwwwwwwwww         wwwww        www",
-    "w    wwww     www      ww              b  wwwwwwwwwwww                                    wwww     wwwwwwwww       wwww",
-    "wwwwwwwww     wwwwwwwwwww               wwwwwwwwwwwwww          wwwww      ttttttttt      wwww     wwwwwwwwwwwwwwwwwwww",
-    "wwwwwwwww     wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww          wwwww                     wwww     wwwwwwwwwwwwwwwwwwww",
-    "wwwwwwwww     wwwwwwwwwwwww              wwwwwwwwwwwww          wwwwwwwwwwwwwwwwwwwwwwwwwwwwww     wwwwwwwwwwwwwwwwwwww",
-    "wwwwwwwww        wwwwwwwwwwtttttttt      wwwwww           b                                         wwwwwwwwwwwwwwwwwww",
-    "wwwwwwwww             wwwwwtttttttt      wwww                                                        wwwwwwwwwwwwwwwwww",
-    "ww                    wwwww            wwww                        wwwwwwwwwwwww    wwwwwwww          wwwwwwwwwwwwwwwww",
-    "wwtttttttt     wwww   wwwww   wwwwwwwwwwwww          ttttttt   b   wwwwwwwwwwwww    wwwwwwwww        wwwwwwwwwwwwwwwwww",
-    "wwtttttttt     wwww   wwwww   wwwwwwwwwwwww    b     ttttttt       wwwwwwtttt         wwwwwwwww     wwwwwwwwwwwwwwwwwww",
-    "wwwwtttttt     wwww                                    ttttt       wwwwww       b     wwww          wwwwwwwwwwwwwwwwwww",
-    "wwwww          wwww                            www            b    wwwwwww           wwwww          wwwwwwwwwwwwwwwwwww",
-    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww               wwwwwwww         wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
-    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww3555555555555555555555551wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+    "wwwwww222222222222wwwwwwwwwwwwwwwwwwwwwwwwww235                       51wwwwwwwwwwwwwwwwwwwww2222222222222222wwwwwwwwww",
+    "wwwww65555555555554wwwwwwwwwwwwwwwwwwwwwwww35                          51wwwwwwwwwwwwwwwwwww655555555555555554wwwwwwwww",
+    "wwwww6            12222222222222222222222235                            512222222222222222223                4wwwwwwwww",
+    "wwwww6            5555555555555555555555555           ttttttt            55555555555555555555       tttt b   4wwwwwwwww",
+    "wwwww6ttttttt                                         ttttttt                                        ttt     4wwwwwwwww",
+    "wwwww6                                                ttttttt                                                4wwwwwwwww",
+    "wwwww6        7888888888889      7888888889                              d8888888888888888886      7888888888wwwwwwwwww",
+    "w2222w889     4ww222222ww23      122wwwwwww9                             4ww22355555555122226      1222wwwww2222222wwww",
+    "6555522w6     4w65555554655      5554wwwwwww89                         78w23555        555555      555512223       1www",
+    "6    5522     123  tt  46           4wwwwwwwww88888889          7888888ww655                           55555        1ww",
+    "6      55     555      46           12222wwwwwwwwwwww6          4wwwwwwww6                                          t1w",
+    "6ttt                   46           555554wwwwwwwwwww6          122222222w9            7888889                      tt4",
+    "6ttt                b  46                1wwwwwwwwwww6          5555555554w222222222222wwwwww6         78889        t7w",
+    "6      79     789      46                 4wwwwwwwwww6                   55555555555555555www6         4www6        7ww",
+    "6    7ww6     4w6      46              b  4wwwwwwwwww6                                    4ww6     7888wwww6       7www",
+    "w8888www6     4ww888888w6                7wwwwwwwwwww6          78889      ttttttttt      4ww6     4wwwwwwww8888888wwww",
+    "wwwwwwww6     1222wwwwwww88555555555555554wwwww2222223          12223                     4ww6     4wwwwwwwwwwwwwwwwwww",
+    "wwwwwwww6     55551222wwww6              4www235555555          55555                     5555     1wwwwwwwwwwwwwwwwwww",
+    "ww22222226        55554www6tttttttt      4w2355           b                                         1wwwwwwwwwwwwwwwwww",
+    "ww5555556             4www6tttttttt      4655                                                        1wwwwwwwwwwwwwwwww",
+    "w6                    4www6            78w6                        7888888888889    78888889          4wwwwwwwwwwwwwwww",
+    "w6tttttttt     7889   12223   488888888www6          ttttttt   b   4wwwww5555553    12wwwwww9        7wwwwwwwwwwwwwwwww",
+    "w6tttttttt     4ww6   55555   5555555555555    b     ttttttt       4wwww6tttt         4wwwwwww6     7wwwwwwwwwwwwwwwwww",
+    "ww89tttttt     4ww6                                    ttttt       4wwww6       b     4ww6          4wwwwwwwwwwwwwwwwww",
+    "wwww9          4ww6                            789            b    4wwwww9           7www6          4wwwwwwwwwwwwwwwwww",
+    "wwwww8888888888wwww8888888888888888888888888888www89               4wwwwww9         7wwwww8888888888wwwwwwwwwwwwwwwwwww",
+    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww888888888888888wwwwwwww888888888wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
 ]
 mirahq = [
     "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
@@ -63,28 +63,27 @@ mirahq = [
     "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww       ww  ww      ww          wwww        wwwwwwwwww        wwwwwwwwwwww",
     "wwwwww                    wwwwwwwwwwwwwwwwwwww       ww  ww      ww     wwwwwwwwwwwwwwwwwwwwwwwwwwwww      wwwwwwwwwwww",
     "wwwwww                    wwwwwwwwwwwwwwwwwwww       ww  ww      ww     ww           ww         ww                   ww",
-    "wwwwww                    wwwwwwwwwwwwwwwwwwww       ww  ww             ww           ww         ww         x         ww",
+    "wwwwww                    wwwwwwwwwwwwwwwwwwww       ww  ww             ww           ww         ww                   ww",
     "wwwwww                    wwwwwwwwwwwwwwwwwwwwww   wwwwwwww                          ww         ww                   ww",
     "wwwwww                    wwwwwwwwwwwwwwwwwwww                   ww     ww           ww         ww                   ww",
     "wwwwww                    wwwwwwwwwwwwwwwwwwww                   ww     ww           ww         ww                   ww",
     "wwwwww                    wwwwwwwwwwwwwwwwwwww                   ww     wwwwwwwwwwwwwwwww       wwwww                ww",
-    "wwwwwwwwwwwww      wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww     ww           wwww                            ww",
-    "wwwwwwwwwwwww                                                                        wwwwwwww       wwwwwww    wwwwwwww",
+    "wwwwwwwwwwwww      wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww     ww           wwww           w                ww",
+    "wwwwwwwwwwwww                                                                        wwwwwwww       w          wwwwwwww",
     "wwwwwwwwwwwww                                                                        www                             ww",
     "wwwwwwwwwwwww                                                           ww      b    www                             ww",
     "wwwwwwwwwwwww                              wwwwwwwwwwwwwwwwwwwwwwww     ww           www            wwwwwwwwwwwwwwwwwww",
     "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
 ]
 
-walking_is_playing = False
 
-
-def start(color="Green", level="SKELD"):
+def start(username="Azeasy", color="Green", level="SKELD"):
     pygame.init()
     size = (1024, 768)
     fps = 30  # Frames per second
     screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
+    walking_is_playing = False
 
     if level == "SKELD":
         arr = skeld
@@ -129,14 +128,18 @@ def start(color="Green", level="SKELD"):
                 direction.add('left')
 
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_UP:  # What exactly did we press?
-                    direction.remove('up')
+                if event.key == pygame.K_UP:
+                    if 'up' in direction:
+                        direction.remove('up')
                 if event.key == pygame.K_DOWN:
-                    direction.remove('down')
+                    if 'down' in direction:
+                        direction.remove('down')
                 if event.key == pygame.K_RIGHT:
-                    direction.remove('right')
+                    if 'right' in direction:
+                        direction.remove('right')
                 if event.key == pygame.K_LEFT:
-                    direction.remove('left')
+                    if 'left' in direction:
+                        direction.remove('left')
 
             if pygame.mouse.get_pressed()[0] and event.type == pygame.MOUSEBUTTONDOWN:
                 bullets_cnt -= 1
@@ -162,7 +165,7 @@ def start(color="Green", level="SKELD"):
         animation_step += 1
         animation_step %= freq
 
-        bullet_speed = 0.3
+        bullet_speed = 0.1
         if len(direction) > 0:
             bullet_speed = 1
             if not walking_is_playing:
