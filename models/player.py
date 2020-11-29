@@ -49,6 +49,7 @@ class Player:
         self.cooldown = cooldown
         self.last_shot = 0
         self.lifes = lifes
+        self.bullets_cnt = 10
 
     def dead(self, cam_x, cam_y, bullet_speed=1, players=[], map_arr=[]):
         self.screen.blit(self.image_dead, (self.position[0] + cam_x, self.position[1] + cam_y))
@@ -118,6 +119,7 @@ class Player:
             shot_sound.play()
             self.bullets.append(Bullet(self.screen, x + 25, y + 25, dest_x, dest_y))
             self.last_shot = time.time()
+            self.bullets_cnt -= 1
 
     def get_punch(self):
         self.lifes -= 1

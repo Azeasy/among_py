@@ -5,10 +5,6 @@ from .bot import Bot
 class Map:
     image_size = 50
 
-    # def __init__(self,
-    #              tasks,
-    #              spawn):  # spawn - это изначальное место, откуда начинается игра
-
     def __init__(self,
                  map_arr,
                  screen,
@@ -23,6 +19,7 @@ class Map:
         self.players = players
         self.data_path = data_path
         self.assets = {}
+        self.gameover = pygame.image.load('static/images/gameover.png')
 
     def add_player(self, player):
         add = False
@@ -42,7 +39,7 @@ class Map:
     def display_ground(self, cam_x, cam_y):
         for i in range(len(self.map_arr)):
             for j in range(len(self.map_arr[i])):
-                if self.map_arr[i][j] == " ":
+                if self.map_arr[i][j] in " t":
                     self.screen.blit(self.get_asset('ground'),
                                      (j * self.image_size + cam_x, i * self.image_size + cam_y))
 
