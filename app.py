@@ -59,14 +59,14 @@ mirahq = [
     "wwwwww22222222222222222222wwwwwwwwwwwwwwwwwww6       46ww46      46     78888wwww8889 7888883www189        12222222222w",
     "wwwww6555555555555555555554wwwwwwwwwwwwwwwwww6       46ww46      13     4w222222222228222222222297223      55555555554w",
     "wwwww6                    4wwwwwwwwwwwwwwwwww6       46ww46      55     13555555555554655555555546555                4w",
-    "wwwww6                    4wwwwwwwwwwwwwwwwww6     12222223             55           46         46                   4w",
+    "wwwww6                b   4wwwwwwwwwwwwwwwwww6     12222223             55           46         46                   4w",
     "wwwww6                    4wwwwwwwwwwwwwwwwww6     55555555                   b      46    b    46                   4w",
     "wwwww6                    4wwwwwwwwwwwwwwwwww6                   79                  46         46                   4w",
     "wwwww6             7      4wwwwwwwwwwwwwwwwww6                   46     79           46         46                   4w",
     "wwwww6             122222222222222222222222222222222222222222222223     4w22222222222ww89       12226         789    4w",
     "wwwwww8888889      555555555555555555555555555555555555555555555555     13555555555554ww3       55553         123    4w",
     "wwwwwwwwwwww6                                                           55           4w65           5         555    1w",
-    "wwwwwwwwwwww6                                                                        4w6                             6w",
+    "wwwwwwwwwwww6                             b                                          4w6                             6w",
     "wwwwwwwwwwww6                                                                   b    4w6                             6w",
     "wwwwwwwwwwww6                              788888888888888888888889     79           4w6            98888888888888888ww",
     "wwwwwwwwwwwww888888888888888888888888888888wwwwwwwwwwwwwwwwwwwwwwww88888ww88888888888www888888888888wwwwwwwwwwwwwwwwwww",
@@ -114,7 +114,6 @@ def start(username="Azeasy", color="Green", level="SKELD"):
     gameover = False
     display_hint = True
 
-    bullets_cnt = 10
     map_.display(cam_x, cam_y)
 
     # Game loop
