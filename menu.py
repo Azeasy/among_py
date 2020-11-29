@@ -17,7 +17,8 @@ def start_the_game():
     # Do the job here !
     color = color_settings_button.get_value()[0]
     level = level_settings_button.get_value()[0]
-    return start(level=level, color=color)
+    username = name_button.get_value()
+    return start(username=username, level=level, color=color)
 
 
 def set_level(value, difficulty):

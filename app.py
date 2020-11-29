@@ -11,7 +11,7 @@ skeld = [
     "wwwww6            5555555555555555555555555           ttttttt            55555555555555555555       tttt b   4wwwwwwwww",
     "wwwww6ttttttt                                         ttttttt         b                              ttt     4wwwwwwwww",
     "wwwww6                                                ttttttt                                                4wwwwwwwww",
-    "wwwww6        7888888888889      7888888889                              d8888888888888888886      7888888888wwwwwwwwww",
+    "wwwww6        7888888888889      7888888889                              78888888888888888886      7888888888wwwwwwwwww",
     "w2222w889     4ww222222ww23      122wwwwwww9                             4ww22355555555122226      1222wwwww2222222wwww",
     "6555522w6     4w65555554655      5554wwwwwww89                         78w23555        555555      555512223       1www",
     "6    5522     123  tt  46           4wwwwwwwww88888889          7888888ww655                           55555        1ww",
@@ -99,7 +99,7 @@ def start(username="Azeasy", color="Green", level="SKELD"):
     cam_x, cam_y = -x + 500, -y + 600
 
     player = None
-    player = Player(f"static/images/{color.lower()}.png", screen, "Azeasy", x=x, y=y, speed=2)
+    player = Player(f"static/images/{color.lower()}.png", screen, username, x=x, y=y, speed=2)
 
     map_ = None
     map_ = Map(arr,
@@ -237,18 +237,16 @@ def start(username="Azeasy", color="Green", level="SKELD"):
             text = font.render(f'TIME SLOWS DOWN', True, red)
             textRect = text.get_rect()
             textRect.center = (size[0] // 2, size[1] // 2 - 100)
-
             screen.blit(text, textRect)
+
             text = font.render(f'WHEN YOU DO NOT MOVE', True, red)
             textRect = text.get_rect()
             textRect.center = (size[0] // 2, size[1] // 2)
-
             screen.blit(text, textRect)
 
             text = font.render(f'PRESS SPACE', True, red)
             textRect = text.get_rect()
             textRect.center = (size[0] // 2, size[1] // 2 + 100)
-
             screen.blit(text, textRect)
 
         if map_.players[0].lifes <= 0 or alived - 1 == 0:
@@ -262,7 +260,7 @@ def start(username="Azeasy", color="Green", level="SKELD"):
         screen.blit(map_.gameover, (0, 0))
 
         white = (255, 255, 255)
-        font = pygame.font.Font('static/fonts/mono.otf', 60)
+        font = pygame.font.Font('static/fonts/among_us.ttf', 36)
         text = font.render(f'Press Space to continue', True, white)
         textRect = text.get_rect()
         textRect.center = (size[0] // 2, 50)

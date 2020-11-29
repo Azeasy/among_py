@@ -13,7 +13,7 @@ kill_sound = pygame.mixer.Sound('static/audio/kill.ogg')
 class Player:
     image_size = 100
 
-    def __init__(self, image_path, screen, nickname, cooldown=3, x=0, y=0, speed=1, lifes=3):
+    def __init__(self, image_path, screen, username, cooldown=3, x=0, y=0, speed=1, lifes=3):
         image = pygame.image.load(image_path)
         self.image = pygame.transform.scale(image,
                                             (self.image_size,
@@ -40,7 +40,7 @@ class Player:
                                                  (self.image_size,
                                                   self.image_size))
         self.screen = screen
-        self.nickname = nickname
+        self.username = username
         self.position = (x, y)
         self.speed = speed
         self.animate = False
@@ -86,6 +86,14 @@ class Player:
 
         self.screen.blit(self.image, (self.position[0] + cam_x, self.position[1] + cam_y))
 
+        if not self.username.isdigit():
+            white = (255, 255, 255)
+            font = pygame.font.Font('static/fonts/among_us.ttf', 36)
+            text = font.render(self.username, True, white)
+            textRect = text.get_rect()
+            textRect.center = (self.position[0] + cam_x + 50, self.position[1] + cam_y - 10)
+            self.screen.blit(text, textRect)
+
         for bullet in self.bullets:
             bullet.move(speed=bullet_speed, players=players, map_arr=map_arr)
             bullet.display(cam_x, cam_y)
@@ -130,7 +138,7 @@ class Player:
         return self.lifes > 0
 
     def __str__(self):
-        return f"{self.__class__.__name__} {self.nickname}"
+        return f"{self.__class__.__name__} {self.username}"
 
     def __repr__(self):
         return self.__str__()

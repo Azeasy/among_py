@@ -24,7 +24,7 @@ class Map:
     def add_player(self, player):
         add = False
         for pl in self.players:
-            if pl.nickname == player.nickname:
+            if pl.username == player.username:
                 return
         self.players.append(player)
 
