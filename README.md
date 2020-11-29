@@ -24,7 +24,7 @@ class Bot(Player)
         duration
 
 class Map
-    
+
     fields:
         background
         map_arr
